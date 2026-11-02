@@ -210,6 +210,7 @@
           ${note}
           ${tags ? `<div class="card-tags">${tags}</div>` : ''}
           ${route ? `
+          <div class="card-spacer" aria-hidden="true"></div>
           <div class="card-route">
             <span class="route-ico" aria-hidden="true">${TYPE_ICONS[route.type] || ''}</span>
             <span class="route-name">当前线路：${escapeHtml(route.name)}</span>
