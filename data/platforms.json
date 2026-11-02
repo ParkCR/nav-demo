@@ -11,5 +11,12 @@
       "s", "emails", "session", "challenge", "oauth", "api", "web",
       "ar", "directory", "invites", "lite", "support"
     ]
+  },
+  {
+    "id": "ph",
+    "name": "PH",
+    "fullName": "PH（Pornhub）",
+    "page": "platform.html?id=ph",
+    "domain": "pornhub.com"
   }
 ]
