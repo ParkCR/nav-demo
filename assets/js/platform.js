@@ -2,8 +2,14 @@
 
 (function () {
   const TYPE_LABELS = {
-    redirect: '↗ 直接打开',
-    manual_copy: '⧉ 复制用户名后打开'
+    redirect: '直接打开',
+    manual_copy: '复制用户名后打开'
+  };
+
+  /* 线路类型图标（内联 SVG，stroke 跟随 currentColor） */
+  const TYPE_ICONS = {
+    redirect: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+    manual_copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>'
   };
 
   const DEFAULT_USERNAME_PATTERN = /^[A-Za-z0-9._]+$/;
@@ -128,6 +134,7 @@
     routesEl.innerHTML = state.routes.map((r, i) => {
       const active = i === state.currentRouteIndex ? ' active' : '';
       return `<button type="button" class="route-btn${active}" data-index="${i}">
+        <span class="route-ico" aria-hidden="true">${TYPE_ICONS[r.type] || ''}</span>
         ${escapeHtml(r.name)}
         <span class="badge badge-${r.type}">${TYPE_LABELS[r.type] || ''}</span>
       </button>`;
@@ -184,9 +191,6 @@
     const displayName = (f.displayName || f.username || '').trim();
     const initial = (displayName || f.username || '?').charAt(0).toUpperCase();
     const route = state.routes[state.currentRouteIndex];
-    const routeText = route
-      ? `当前线路：${route.name} · ${TYPE_LABELS[route.type] || route.type}`
-      : '';
 
     const tags = (f.tags || []).map(t =>
       `<span class="tag">${escapeHtml(t)}</span>`
@@ -199,13 +203,22 @@
     return `
       <article class="follow-card" data-username="${escapeHtml(f.username)}"
                tabindex="0" role="button" aria-label="打开 ${escapeHtml(f.username)}">
-        <div class="avatar">${escapeHtml(initial)}</div>
+        <div class="avatar" aria-hidden="true">${escapeHtml(initial)}</div>
         <div class="card-body">
-          <div class="card-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</div>
+          <div class="card-head">
+            <div class="card-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</div>
+            <span class="card-open" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </span>
+          </div>
           <div class="card-username">@${escapeHtml(f.username)}</div>
           ${tags ? `<div class="card-tags">${tags}</div>` : ''}
           ${note}
-          <div class="card-route">${escapeHtml(routeText)}</div>
+          ${route ? `
+          <div class="card-route">
+            <span class="route-ico" aria-hidden="true">${TYPE_ICONS[route.type] || ''}</span>
+            <span>当前线路：${escapeHtml(route.name)}</span>
+          </div>` : ''}
         </div>
       </article>
     `;
@@ -254,7 +267,7 @@
     for (const [tag, items] of groups) {
       html += `
         <div class="group">
-          <h3 class="group-title">${escapeHtml(tag)}</h3>
+          <h3 class="group-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>${escapeHtml(tag)}</h3>
           <div class="cards-grid">${items.map(followCardHtml).join('')}</div>
         </div>
       `;
@@ -262,7 +275,7 @@
     if (untagged.length) {
       html += `
         <div class="group">
-          <h3 class="group-title">未分类</h3>
+          <h3 class="group-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>未分类</h3>
           <div class="cards-grid">${untagged.map(followCardHtml).join('')}</div>
         </div>
       `;

@@ -23,8 +23,23 @@
 
     container.innerHTML = list.map(p => `
       <a class="platform-card" href="${escapeHtml(p.page)}">
-        <span class="platform-name">${escapeHtml(p.name)}</span>
-        <span class="platform-arrow">→</span>
+        <span class="platform-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </span>
+        <span class="platform-text">
+          <span class="platform-name">${escapeHtml(p.name)}</span>
+          ${p.fullName ? `<span class="platform-full">${escapeHtml(p.fullName)}</span>` : ''}
+        </span>
+        <span class="platform-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </span>
       </a>
     `).join('');
 
