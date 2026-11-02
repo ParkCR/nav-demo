@@ -1,4 +1,4 @@
-/* 公共工具：转义、复制、toast、新标签页打开、复制失败浮层、fetch JSON */
+/* 公共工具：转义、复制、toast、新标签页打开、复制失败浮层、fetch JSON、主题切换 */
 
 function escapeHtml(str) {
   return String(str == null ? '' : str)
@@ -90,4 +90,76 @@ async function loadJson(path) {
   return res.json();
 }
 
-document.addEventListener('DOMContentLoaded', bindCopyFallback);
+/* ---------- 主题切换：默认跟随系统 + 手动覆盖 + localStorage 持久化 ---------- */
+function initTheme() {
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  const KEY = 'theme';
+  const mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function getStoredTheme() {
+    try {
+      const v = localStorage.getItem(KEY);
+      return (v === 'light' || v === 'dark') ? v : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function systemTheme() {
+    return (mql && mql.matches) ? 'dark' : 'light';
+  }
+
+  function effectiveTheme() {
+    return getStoredTheme() || systemTheme();
+  }
+
+  function updateButton(theme) {
+    if (!btn) return;
+    const isDark = theme === 'dark';
+    btn.textContent = isDark ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', isDark ? '切换到亮色模式' : '切换到暗色模式');
+    btn.setAttribute('title', isDark ? '切换到亮色模式' : '切换到暗色模式');
+    btn.setAttribute('aria-pressed', String(isDark));
+  }
+
+  function syncFromStorage() {
+    const stored = getStoredTheme();
+    if (stored) {
+      root.setAttribute('data-theme', stored);
+    } else {
+      // 无存储时移除手动主题，让 CSS 的 prefers-color-scheme 接管
+      root.removeAttribute('data-theme');
+    }
+    updateButton(effectiveTheme());
+  }
+
+  // head 内防闪烁脚本已提前设置 data-theme，这里同步按钮并兜底
+  syncFromStorage();
+
+  if (btn) {
+    btn.addEventListener('click', function () {
+      const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(KEY, next); } catch (e) { /* 隐私模式忽略 */ }
+      root.setAttribute('data-theme', next);
+      updateButton(next);
+    });
+  }
+
+  // 无手动存储时，系统主题变化只更新按钮，CSS 自动跟随
+  if (mql) {
+    const onChange = function () {
+      if (!getStoredTheme()) updateButton(systemTheme());
+    };
+    if (mql.addEventListener) {
+      mql.addEventListener('change', onChange);
+    } else if (mql.addListener) {
+      mql.addListener(onChange);
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  bindCopyFallback();
+  initTheme();
+});
