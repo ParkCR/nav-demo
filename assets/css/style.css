@@ -18,6 +18,8 @@
   --accent: #4a8fe0;                        /* 饰线辅色（蓝） */
   --text-soft: #5b6470;                     /* 页脚等更低层级文字（仍达 AA） */
   --chip-bg: #eef0f5;                       /* 标签筛选 chip 底色 */
+  --route-grad: linear-gradient(135deg, #cf1a5f, #ee5d94);  /* 线路按钮渐变 */
+  --route-shadow: 0 4px 12px rgba(225, 48, 108, 0.24);
   --placeholder: #8a93a0;                   /* 输入框占位文字 */
 
   --badge-redirect-bg: #e8f2ff;
@@ -71,9 +73,10 @@
     --on-primary: #1f2328;
     --accent: #7cb3ff;
     --text-soft: #b9c0c8;
-    --chip-bg: rgba(255, 255, 255, 0.06);
-  --placeholder: #8f97a2;
+      --chip-bg: rgba(255, 255, 255, 0.06);
     --placeholder: #8f97a2;
+    --route-grad: linear-gradient(135deg, #b8144e, #d84a80);
+    --route-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 
     --badge-redirect-bg: #1a2a44;
     --badge-redirect-fg: #7cb3ff;
@@ -111,6 +114,8 @@
   --text-soft: #b9c0c8;
   --chip-bg: rgba(255, 255, 255, 0.06);
   --placeholder: #8f97a2;
+  --route-grad: linear-gradient(135deg, #b8144e, #d84a80);
+  --route-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 
   --badge-redirect-bg: #1a2a44;
   --badge-redirect-fg: #7cb3ff;
@@ -542,18 +547,23 @@ svg { flex-shrink: 0; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.card-spacer {
+  flex: 1 0 var(--space-4);
+}
 .card-route {
   display: flex;
   align-items: center;
   gap: 6px;
   width: 100%;
   box-sizing: border-box;
-  margin-top: auto;
-  padding: 5px 12px;
+  padding: 8px 14px;
   border-radius: 999px;
-  font-size: 12px;
-  color: var(--text-muted);
-  background: var(--chip-bg);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #ffffff;
+  background: var(--route-grad);
+  box-shadow: var(--route-shadow);
+  transition: box-shadow 160ms ease, filter 160ms ease;
 }
 .card-route .route-name {
   flex: 1;
@@ -561,18 +571,27 @@ svg { flex-shrink: 0; }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-align: left;
+  text-align: center;
 }
-.card-route .route-ico svg { width: 12px; height: 12px; color: var(--primary); }
+.card-route .route-ico svg {
+  width: 13px;
+  height: 13px;
+  color: rgba(255, 255, 255, 0.95);
+}
 .card-route .route-go {
   width: 13px;
   height: 13px;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.85);
   transition: color 160ms ease, transform 160ms ease;
+}
+.follow-card:hover .card-route,
+.follow-card:focus-visible .card-route {
+  box-shadow: 0 6px 16px rgba(225, 48, 108, 0.32);
+  filter: brightness(1.04);
 }
 .follow-card:hover .card-route .route-go,
 .follow-card:focus-visible .card-route .route-go {
-  color: var(--primary);
+  color: #ffffff;
   transform: translateX(3px);
 }
 
