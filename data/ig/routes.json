@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Imginn-Proxy",
+    "type": "redirect",
+    "urlTemplate": "https://imginn.com/{username}/"
+  },
+  {
+    "name": "Pixnoy-Proxy",
+    "type": "redirect",
+    "urlTemplate": "https://www.pixnoy.com/profile/{username}/"
+  },
+  {
+    "name": "Instapeep",
+    "type": "manual_copy",
+    "openUrl": "https://instapeep.com/"
+  },
+  {
+    "name": "Instashadow",
+    "type": "manual_copy",
+    "openUrl": "https://instashadow.com/"
+  }
+]

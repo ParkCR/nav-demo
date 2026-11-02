@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>导航 - nav-demo</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="back-link" href="index.html">← 返回总入口</a>
+      <h1 id="page-title">加载中…</h1>
+      <a class="back-link" href="index.html" title="平台切换">切换平台</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="platform-content" hidden>
+      <div class="controls">
+        <div class="control-block">
+          <label class="control-label" for="route-select">当前线路</label>
+          <div class="route-row">
+            <select id="route-select" class="route-select"></select>
+            <span id="route-badge" class="badge"></span>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <label class="control-label" for="username-input">输入用户名或主页链接</label>
+          <input id="username-input" class="text-input" type="text" autocomplete="off"
+                 placeholder="输入用户名、@用户名 或主页链接">
+          <div id="parse-result" class="parse-result" hidden>
+            <div class="parsed-username">解析结果：<strong id="parsed-name"></strong></div>
+            <div id="parse-routes" class="route-buttons"></div>
+          </div>
+          <div id="parse-error" class="parse-error" hidden></div>
+        </div>
+      </div>
+
+      <section>
+        <div class="follows-toolbar">
+          <input id="search-input" class="search-input" type="search" autocomplete="off"
+                 placeholder="搜索展示名、用户名或备注">
+          <label class="group-toggle">
+            <input type="checkbox" id="group-toggle"> 按标签分组
+          </label>
+        </div>
+        <div id="tag-filter" class="tag-filter"></div>
+        <div id="follows-list" class="follows-list"></div>
+      </section>
+    </section>
+
+    <section id="platform-error" class="empty" hidden>
+      <p>平台不存在或已停用</p>
+      <p><a class="back-link" href="index.html">返回总入口</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p id="disclaimer"></p>
+  </footer>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <div id="copy-fallback" class="copy-fallback" hidden>
+    <div class="copy-fallback-box">
+      <p>复制失败，请手动复制用户名：</p>
+      <input id="copy-fallback-input" class="text-input" type="text" readonly>
+      <div class="copy-fallback-actions">
+        <button type="button" id="copy-fallback-retry" class="btn btn-primary">再次复制</button>
+        <button type="button" id="copy-fallback-close" class="btn">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/platform.js"></script>
+</body>
+</html>

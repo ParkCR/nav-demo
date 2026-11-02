@@ -1,0 +1,15 @@
+[
+  {
+    "id": "ig",
+    "name": "IG",
+    "fullName": "IG（Instagram）",
+    "page": "platform.html?id=ig",
+    "domain": "instagram.com",
+    "reservedPaths": [
+      "p", "reel", "reels", "explore", "stories", "tv", "accounts",
+      "direct", "about", "developer", "legal", "privacy", "terms",
+      "s", "emails", "session", "challenge", "oauth", "api", "web",
+      "ar", "directory", "invites", "lite", "support"
+    ]
+  }
+]
