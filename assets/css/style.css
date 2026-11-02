@@ -73,6 +73,10 @@ body {
 }
 
 /* ---------- 控制区 ---------- */
+#platform-content {
+  display: grid;
+  gap: 24px;
+}
 .controls {
   display: grid;
   gap: 16px;
