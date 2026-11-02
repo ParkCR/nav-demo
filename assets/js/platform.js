@@ -205,12 +205,10 @@
                tabindex="0" role="button" aria-label="打开 ${escapeHtml(f.username)}">
         <div class="avatar" aria-hidden="true">${escapeHtml(initial)}</div>
         <div class="card-body">
-          <div class="card-head">
-            <div class="card-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</div>
-          </div>
+          <div class="card-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</div>
           <div class="card-username">@${escapeHtml(f.username)}</div>
-          ${tags ? `<div class="card-tags">${tags}</div>` : ''}
           ${note}
+          ${tags ? `<div class="card-tags">${tags}</div>` : ''}
           ${route ? `
           <div class="card-route">
             <span class="route-ico" aria-hidden="true">${TYPE_ICONS[route.type] || ''}</span>
