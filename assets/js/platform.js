@@ -82,8 +82,8 @@
 
   function setPageTitle(config) {
     const title = document.getElementById('page-title');
-    if (title) title.textContent = config.name + ' 导航';
-    document.title = config.name + ' 导航 - nav-demo';
+    if (title) title.textContent = config.name + ' web';
+    document.title = config.name + ' web - nav-demo';
   }
 
   function setDisclaimer(config) {
