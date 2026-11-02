@@ -4,12 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>nav-demo - 社交媒体导航</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <h1>nav-demo</h1>
+      <button type="button" id="theme-toggle" class="theme-toggle"
+              aria-label="切换暗色模式" title="切换暗色模式" aria-pressed="false">🌙</button>
     </div>
   </header>
 
