@@ -45,7 +45,7 @@
 
     const footer = document.getElementById('index-disclaimer');
     if (footer) {
-      const names = list.map(p => p.fullName || p.name).join('、');
+      const names = list.map(p => p.name).join('、');
       footer.textContent = `本页面仅提供第三方线路跳转，不代理、不存储任何 ${names}内容，线路可用性由第三方决定。`;
     }
   } catch (err) {
